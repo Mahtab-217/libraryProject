@@ -42,5 +42,9 @@ class Book extends Model
         }
     }
 
-    
+    public function returnBook(){
+        if($this->available_copies< $this->total_copies){
+            $this->increment('available_copies');
+        }
+    }
 }
