@@ -23,5 +23,15 @@ class Borrowing extends Model
         "returned_date"=>"date",
     ];
 
-    
+    public function book(){
+        return $this->belongsTo(Book::class);
+    }
+
+    public function member(){
+        return $this->belongsTo(Member::class);
+    }
+
+    public function isOverDue(){
+        return $this->due_date < Carbon::today() && $this->status ==="borrowed";
+    }
 }
