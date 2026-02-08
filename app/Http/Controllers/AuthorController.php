@@ -12,9 +12,12 @@ class AuthorController extends Controller
     public function index()
     {
         //
+       $author = Author::paginate(8);
+
+
         $author = Author::all();
         return response()->json([
-            "author"=>$author,
+            "data"=>$author,
         ]);
     }
    
@@ -25,6 +28,14 @@ class AuthorController extends Controller
     public function store(Request $request)
     {
         //
+        $author =Author::create([
+          "name"=>$reauest->name,
+          "bio"=>$reauest->biography,
+          "nationality"=>$request->nationality,
+        ]);
+        return response()->json([
+            "createdAuthor"=> $author
+        ]);
     }
 
     /**
