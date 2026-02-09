@@ -13,12 +13,12 @@ class AuthorController extends Controller
     {
         //
        $author = Author::paginate(8);
+        return new AuthorResource($authors);
 
-
-        $author = Author::all();
-        return response()->json([
-            "data"=>$author,
-        ]);
+        // $author = Author::all();
+        // return response()->json([
+        //     "data"=>$author,
+        // ]);
     }
    
 
@@ -28,16 +28,15 @@ class AuthorController extends Controller
     public function store(Request $request)
     {
         //
-       $author = Author::create([
-         "name"=>$request->name,
-         "bio"=>$request->bio,
-         "nationality"=>$request->nationality
-       ]);
+       $author = Author::create( $request->validated() );
+    //     [
+    //      "name"=>$request->name,
+    //      "bio"=>$request->bio,
+    //      "nationality"=>$request->nationality
+    //    ]
+      
 
-        return response()->json([
-            "createdAuthor"=> $author,
-            // "error"=>"something went wrong"
-        ]);
+        return new authorResource($author);
     }
 
     /**
@@ -46,6 +45,10 @@ class AuthorController extends Controller
     public function show(string $id)
     {
         //
+        $author=Author::findOrFail($id);
+        return response()->json([
+            "author"=>$author
+        ]);
     }
 
     /**
