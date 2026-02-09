@@ -4,13 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
+use app\Models\Book;
 class Author extends Model
 {
 
     /** @use HasFactory<\Database\Factories\AuthorFactory> */
     use HasFactory;
-      protected $failable=[
+      protected $fillable=[
      "name",
      "bio",
      "nationality"

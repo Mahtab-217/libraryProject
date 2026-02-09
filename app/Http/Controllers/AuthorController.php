@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 use App\Http\Requests\AuthorInsertRequest;
 use Illuminate\Http\Request;
-
+use App\Models\Author;
 class AuthorController extends Controller
 {
     /**
@@ -25,14 +25,18 @@ class AuthorController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(AuthorInsertRequest $request)
+    public function store(Request $request)
     {
         //
-        $author =Author::create($request->validated());
+       $author = Author::create([
+         "name"=>$request->name,
+         "bio"=>$request->bio,
+         "nationality"=>$request->nationality
+       ]);
 
         return response()->json([
             "createdAuthor"=> $author,
-            "error"=>"something went wrong"
+            // "error"=>"something went wrong"
         ]);
     }
 
