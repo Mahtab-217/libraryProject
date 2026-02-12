@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Http\Requests\AuthorInsertRequest;
 use Illuminate\Http\Request;
+use App\Http\Resources\Authorresource;
 use App\Models\Author;
 class AuthorController extends Controller
 {
@@ -52,10 +53,9 @@ class AuthorController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(AuthorInsertRequest $request, string $id)
+    public function update(AuthorInsertRequest $request, Author $author)
     {
         //
-       $author = Author::findOrFail($id);
        $author->update($request->validated());
        return response()->json([
          "author"=>$author
@@ -65,12 +65,11 @@ class AuthorController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Author $author)
     {
         //
-        $author=Author::findOrFail($id);
-        $autheor->delete();
-        return responce()->json([
+        $author->delete();
+        return response()->json([
           "message"=>"one author has been deleted",
         ]);
     }
