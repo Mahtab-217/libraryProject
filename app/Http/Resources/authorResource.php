@@ -14,6 +14,7 @@ class authorResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
+        
         return [
             "name"=>$reauest->name,
             "bio"=>$request->bio,
