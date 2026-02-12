@@ -12,7 +12,7 @@ class AuthorController extends Controller
     public function index()
     {
         //
-       $authors = Author::paginate(8);
+       $authors = Author::with('book')->paginate(8);
         return AuthorResource::collection($authors);
 
         // $author = Author::all();
@@ -56,7 +56,7 @@ class AuthorController extends Controller
     {
         //
        $author = Author::findOrFail($id);
-       $author::update($this->$request->validated);
+       $author->update($request->validated());
        return response()->json([
          "author"=>$author
        ]);
@@ -68,5 +68,10 @@ class AuthorController extends Controller
     public function destroy(string $id)
     {
         //
+        $author=Author::findOrFail($id);
+        $autheor->delete();
+        return responce()->json([
+          "message"=>"one author has been deleted",
+        ]);
     }
 }

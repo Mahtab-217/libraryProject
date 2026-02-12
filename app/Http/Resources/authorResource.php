@@ -18,7 +18,8 @@ class authorResource extends JsonResource
         return [
             "name"=>$reauest->name,
             "bio"=>$request->bio,
-            "nationality"=>$reauest->nationality
+            "nationality"=>$reauest->nationality,
+            "book"=>count($this->book),
         ];
     }
 }
