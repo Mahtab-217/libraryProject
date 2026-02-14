@@ -14,10 +14,8 @@ class AuthorController extends Controller
     public function index()
     {
         //
-        $author = Author::all();
-        return response()->json([
-            "author"=>$author,
-        ]);
+        $authors = Author::all();
+        return new AuthorResource($authors);
     }
 
     /**
@@ -27,9 +25,7 @@ class AuthorController extends Controller
     {
         //
         $author = Author::create($request->validated());
-        return response()->json([
-            "createdAuthor"=> $author,
-        ]);
+        return new AuthorResource($author);
     }
 
     /**
@@ -38,6 +34,10 @@ class AuthorController extends Controller
     public function show(string $id)
     {
         //
+        Author::findOrFail($id);
+        return response()->json([
+            "author"=> $author,
+        ]);
     }
 
     /**
