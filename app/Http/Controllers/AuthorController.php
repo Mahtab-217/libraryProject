@@ -15,7 +15,7 @@ class AuthorController extends Controller
         //
        $authors = Author::with('book')->paginate(8);
         return AuthorResource::collection($authors);
-
+         
         // $author = Author::all();
         // return response()->json([
         //     "data"=>$author,
@@ -36,7 +36,7 @@ class AuthorController extends Controller
     //      "nationality"=>$request->nationality
     //    ]
       
-
+  
         return new authorResource($author);
     }
 
