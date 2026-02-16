@@ -11,10 +11,8 @@ class bookController extends Controller
      */
     public function index()
     {
-      $book=Book::all();
-     return responce()->json([
-       "allBoosks"=>$book,
-     ]);
+      $book=Book::with('author')->paginate(10);
+    
     }
 
     /**

@@ -10,3 +10,4 @@ Route::get('/user', function (Request $request) {
 
  Route::apiResource("author", AuthorController::class);
 // Rout::apiResource("book",bookController::class);
+Route::apiResource("book", BookController::class);
