@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\AuthorResource;
 use App\Http\Requests\AuthorInsertRequest;
 use Illuminate\Http\Request;
 use App\Models\Author;
@@ -14,8 +15,8 @@ class AuthorController extends Controller
     public function index()
     {
         //
-        $authors = Author::all();
-        return new AuthorResource($authors);
+        $authors = Author::whit('book')->paginate(10);
+        return AuthorResource::collection($authors);
     }
 
     /**
@@ -34,25 +35,32 @@ class AuthorController extends Controller
     public function show(string $id)
     {
         //
-        Author::findOrFail($id);
-        return response()->json([
-            "author"=> $author,
-        ]);
+        $author = Author::findOrFail($id);
+        return new AuthorResource($author);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(AuthorInsertRequest $request, Author $author)
     {
         //
+        $author->update($request->validated());
+        return response()->json([
+            "updateAuthor"=> $author,
+        ]);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Author $author)
     {
         //
+        $author->delete();
+        return response()->json([
+            "message"=> "One author deleted successfully",
+        ]);
+
     }
 }
