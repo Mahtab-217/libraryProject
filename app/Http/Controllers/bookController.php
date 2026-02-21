@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\bookResource;
+use App\Models\Book;
 use Illuminate\Http\Request;
 
 class bookController extends Controller
@@ -12,7 +14,7 @@ class bookController extends Controller
     public function index()
     {
       $books=Book::with('author')->paginate(10);
-      return BookResource::collection($books);
+      return bookResource::collection($books);
     }
 
     /**
@@ -20,12 +22,12 @@ class bookController extends Controller
      */
     public function store(Request $request)
     {
-        Book::create([
+        $books=Book::create([
             "title"=>$request->title,
             "isbn"=>$request->isbn,
             "description"=>$request->description,
             "published_at"=>$request->published_at,
-            "total"=>$request->total,
+            "total"=>$request->total_copies,
             "available"=>$request->available_copies,
             "cover_image"=>$request->cover_image,
             "status"=>$request->status,
@@ -34,7 +36,7 @@ class bookController extends Controller
             "genra"=>$request->genra,
         ]);
         return response()->json([
-      "book"=>$book,
+      "book"=>$books,
         ]);
     }
 

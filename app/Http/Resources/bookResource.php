@@ -24,7 +24,7 @@ class bookResource extends JsonResource
             "cover_image"=>$this->cover_image,
             "price"=>$this->price,
             "genra"=>$this->genra,
-            "author"=>new AuthorResource($this->whenLoaded("author"))
+            "author"=>new authorResource($this->whenLoaded("author"))
         ];
     }
 }
