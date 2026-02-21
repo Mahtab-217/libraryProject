@@ -23,8 +23,9 @@ class bookController extends Controller
      */
     public function store(bookInsertion $request)
     {
-        $books=Book::create($request->validate()
-        
+        $books=Book::create($request->validated());
+          $books->load("author");
+        return new bookResource($books);
             // [
 
             // "title"=>$request->title,
@@ -39,9 +40,8 @@ class bookController extends Controller
             // "author_id"=>$request->author_id,
             // "genra"=>$request->genra,
         // ]
-        );
-        $books->load("author");
-        return new bookResource($books);
+        // );
+      
     //     return response()->json([
     //   "book"=>$books,
     //     ]);

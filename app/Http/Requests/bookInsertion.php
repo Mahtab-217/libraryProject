@@ -23,15 +23,15 @@ class bookInsertion extends FormRequest
     public function rules(): array
     {
         return [
-            "title"=>"required|string|min:7",
-            "isbn"=>"required|string|unique:isbn",
+            "title"=>"required|string|min:4",
+            "isbn"=>"required|string",
             "description"=>"nullable|string",
             "published_at"=>"required|date",
-            "total_copies"=>"nullable|integer|max:200",
+            "total_copies"=>"nullable|integer|max:300",
             "cover_image"=>"required|string",
             "price"=>"required|numeric",
-            "author_id"=>"required|exist:author",
-            "genra"=>"r4equired|string",
+            "author_id"=>"required|integer|exists:authors,id",
+            "genra"=>"required|string",
         ];
     }
 }

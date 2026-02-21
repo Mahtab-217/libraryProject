@@ -20,7 +20,7 @@ class Book extends Model
      "price",
      "cover_image",
      "status",
-     "suthor_id",
+     "author_id",
 
     ];
 
