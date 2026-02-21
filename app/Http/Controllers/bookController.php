@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\bookInsertion;
+use App\Http\Requests\BookUpdateRequest;
 use App\Http\Resources\bookResource;
 use App\Models\Book;
 use Exception;
@@ -74,20 +75,21 @@ class bookController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(BookUpdateRequest $request, Book $book)
     {
-        $book = Book::findOrFail($id);
-        $book->update([
-            "title"=>$request->title,
-            "isbn"=>$request->isbn,
-            "description"=>$request->description,
-            "published_at"=>$request->published_at,
-            "total_copies"=>$request->total_copies,
-            "cover_image"=>$request->cover_image,
-            "price"=>$request->price,
-            "genra"=>$request->genra,
-            "author_id"=>$request->author_id,
-        ]);
+        $book->update($request->validated());
+        // $book = Book::findOrFail($id);
+        // $book->update([
+        //     "title"=>$request->title,
+        //     "isbn"=>$request->isbn,
+        //     "description"=>$request->description,
+        //     "published_at"=>$request->published_at,
+        //     "total_copies"=>$request->total_copies,
+        //     "cover_image"=>$request->cover_image,
+        //     "price"=>$request->price,
+        //     "genra"=>$request->genra,
+        //     "author_id"=>$request->author_id,
+        // ]);
         $book->load("Author");
         return new bookResource($book);
         //
