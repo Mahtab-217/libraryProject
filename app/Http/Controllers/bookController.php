@@ -53,18 +53,22 @@ class bookController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Book $book)
     {
-        //
-        try{
-        $book=Book::findOrFail($id);
         $book->load("author");
-        return new bookResource($book);
-        }catch(Exception $error){
-            return Response()->json([
-               "error"=>"book not found"
-            ]);
-        }
+         return new bookResource(($book));
+
+
+        //
+        // try{
+        // $book=Book::findOrFail($id);
+        // $book->load("author");
+        // return new bookResource($book);
+        // }catch(Exception $error){
+        //     return Response()->json([
+        //        "error"=>"book not found"
+        //     ]);
+        // }
     }
 
     /**
@@ -72,6 +76,20 @@ class bookController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        $book = Book::findOrFail($id);
+        $book->update([
+            "title"=>$request->title,
+            "isbn"=>$request->isbn,
+            "description"=>$request->description,
+            "published_at"=>$request->published_at,
+            "total_copies"=>$request->total_copies,
+            "cover_image"=>$request->cover_image,
+            "price"=>$request->price,
+            "genra"=>$request->genra,
+            "author_id"=>$request->author_id,
+        ]);
+        $book->load("Author");
+        return new bookResource($book);
         //
     }
 
