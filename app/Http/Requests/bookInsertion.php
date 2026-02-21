@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use PhpParser\Node\Stmt\TraitUse;
 
 class bookInsertion extends FormRequest
 {
@@ -11,7 +12,7 @@ class bookInsertion extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +23,15 @@ class bookInsertion extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            "title"=>"required|string|min:7",
+            "isbn"=>"required|string|unique:isbn",
+            "description"=>"nullable|string",
+            "published_at"=>"required|date",
+            "total_copies"=>"nullable|integer|max:200",
+            "cover_image"=>"required|string",
+            "price"=>"required|numeric",
+            "author_id"=>"required|exist:author",
+            "genra"=>"r4equired|string",
         ];
     }
 }
