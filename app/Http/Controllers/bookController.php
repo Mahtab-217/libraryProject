@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use App\Http\Requests\bookInsertion;
 use App\Http\Resources\bookResource;
 use App\Models\Book;
+use Exception;
 use Illuminate\Http\Request;
+use Pest\Mutate\Options\ExceptOption;
+use Symfony\Component\HttpKernel\HttpCache\ResponseCacheStrategy;
 
 class bookController extends Controller
 {
@@ -53,6 +56,15 @@ class bookController extends Controller
     public function show(string $id)
     {
         //
+        try{
+        $book=Book::findOrFail($id);
+        $book->load("author");
+        return new bookResource($book);
+        }catch(Exception $error){
+            return Response()->json([
+               "error"=>"book not found"
+            ]);
+        }
     }
 
     /**
