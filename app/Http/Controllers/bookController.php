@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\bookInsertion;
 use App\Http\Resources\bookResource;
 use App\Models\Book;
 use Illuminate\Http\Request;
@@ -20,24 +21,30 @@ class bookController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(bookInsertion $request)
     {
-        $books=Book::create([
-            "title"=>$request->title,
-            "isbn"=>$request->isbn,
-            "description"=>$request->description,
-            "published_at"=>$request->published_at,
-            "total"=>$request->total_copies,
-            "available"=>$request->available_copies,
-            "cover_image"=>$request->cover_image,
-            "status"=>$request->status,
-            "price"=>$request->price,
-            "author_id"=>$request->author_id,
-            "genra"=>$request->genra,
-        ]);
-        return response()->json([
-      "book"=>$books,
-        ]);
+        $books=Book::create($request->validate()
+        
+            // [
+
+            // "title"=>$request->title,
+            // "isbn"=>$request->isbn,
+            // "description"=>$request->description,
+            // "published_at"=>$request->published_at,
+            // "total"=>$request->total_copies,
+            // "available"=>$request->available_copies,
+            // "cover_image"=>$request->cover_image,
+            // "status"=>$request->status,
+            // "price"=>$request->price,
+            // "author_id"=>$request->author_id,
+            // "genra"=>$request->genra,
+        // ]
+        );
+        $books->load("author");
+        return new bookResource($books);
+    //     return response()->json([
+    //   "book"=>$books,
+    //     ]);
     }
 
     /**
