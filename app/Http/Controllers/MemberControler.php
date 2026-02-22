@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Http\Requests\MemberInsertRequest;
 use App\Http\Resources\memberResource;
 use App\Models\Member;
+use Exception;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class MemberControler extends Controller
 {
@@ -33,7 +35,16 @@ class MemberControler extends Controller
      */
     public function show(string $id)
     {
-        //
+        try{
+        $member=Member::findOrFail($id);
+        return new memberResource($member);
+        }catch(Exception $error){
+         return Response()->json([
+         "message"=>"user with id ".$id. " not found"
+         ],
+         407
+         );
+        }
     }
 
     /**
