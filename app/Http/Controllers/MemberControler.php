@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\MemberInsertRequest;
+use App\Http\Resources\memberResource;
+use App\Models\Member;
 use Illuminate\Http\Request;
 
 class MemberControler extends Controller
@@ -12,14 +15,17 @@ class MemberControler extends Controller
     public function index()
     {
         //
-    }
+       $members= Member::paginate(8);
+       return memberResource::collection($members);
+    } 
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(MemberInsertRequest $request)
     {
-        //
+        $member=Member::create($request->validated());
+        return new memberResource($member);
     }
 
     /**

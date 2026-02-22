@@ -11,7 +11,7 @@ class MemberInsertRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,11 @@ class MemberInsertRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            "name"=>"required|string|min:3|max:30",
+            "email"=>"required|string|min:10|max:80",
+            "wahtsApp_number"=>"nullable|min:8|max:20",
+            "adress"=>"required|min:5|max:70",
+            // "membership_date"=>"required|min:3|max:80",
         ];
     }
 }

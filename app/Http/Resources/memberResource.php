@@ -18,7 +18,7 @@ class memberResource extends JsonResource
              "name"=>$this->name,
              "email"=>$this->email,
              "whatsApp_number"=>$this->whatsApp_number,
-             "address"=>$this->address,
+             "adress"=>$this->adress,
              "membership_date"=>$this->membership_date,
         ];
     }
