@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\MemberInsertRequest;
 use App\Http\Resources\memberResource;
+use App\Models\Book;
 use App\Models\Member;
 use Exception;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\HttpCache\ResponseCacheStrategy;
 
 class MemberControler extends Controller
 {
@@ -75,6 +77,18 @@ class MemberControler extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        try{
+            $book=Book::findOrFail($id);
+            $book->delete($id);
+            return Response()->json([
+                "message"=>" The member with the id ".$id." has been deleted successfully"
+            ]);
+
+        }
+        catch(Exception $error){
+             return response()->json([
+                "error"=>$error->getMessage()
+             ]);
+        }
     }
 }
