@@ -17,8 +17,14 @@ class MemberControler extends Controller
     public function index()
     {
         //
+        try{
        $members= Member::paginate(8);
        return memberResource::collection($members);
+    }catch(Exception $error){
+        return Response()->json([
+           "error"=>$error->getMessage()
+        ]);
+    }
     } 
 
     /**
@@ -52,7 +58,16 @@ class MemberControler extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        try{
+       $member=  Member::findOrFail($id);
+       $member->update($request->validated());
+       return new memberResource($member);
+        }catch(Exception $error){
+            return response()->json([
+                 "error"=>"could not update"
+            ]);
+           
+        }
     }
 
     /**
