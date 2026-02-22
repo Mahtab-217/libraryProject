@@ -79,7 +79,7 @@ class MemberControler extends Controller
     {
         try{
             $book=Book::findOrFail($id);
-            $book->delete($id);
+            $book->delete();
             return Response()->json([
                 "message"=>" The member with the id ".$id." has been deleted successfully"
             ]);
