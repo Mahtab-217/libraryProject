@@ -9,6 +9,7 @@ use App\Models\Book;
 use Exception;
 use Illuminate\Http\Request;
 use Pest\Mutate\Options\ExceptOption;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\HttpCache\ResponseCacheStrategy;
 
 class bookController extends Controller
@@ -101,5 +102,18 @@ class bookController extends Controller
     public function destroy(string $id)
     {
         //
+        try{
+            $book=Book::findOrFail($id);
+            $book->delete();
+            return Response()->json([
+                "message"=> $book->title." deleted successfully"
+            ]);
+        }
+        catch(Exception $error){
+            return Response()->json([
+                "error"=>"something went wrong"
+            ]
+            );
+        }
     }
 }
