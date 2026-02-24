@@ -24,8 +24,8 @@ class BookController extends Controller
            $query->where(Function($q) use($search){
                $q->where('title','LIKE',"%{$search}%")
                ->orWhere('isbn','LIKE',"%{$search}%")
-               ->orWhereHas('author',function($autorQuesry) use($search){
-               $autorQuesry->where('name','LIKE',"%{$search}%");
+               ->orWhereHas('author',function($autorQuery) use($search){
+               $autorQuery->where('name','LIKE',"%{$search}%");
                });
                ;
            });
