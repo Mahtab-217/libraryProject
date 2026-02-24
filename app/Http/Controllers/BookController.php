@@ -8,19 +8,32 @@ use App\Http\Resources\BookResource;
 use App\Models\Book;
 use Exception;
 use Illuminate\Http\Request;
+use Psy\CodeCleaner\FunctionReturnInWriteContextPass;
 
 class BookController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         //
-        $book = Book::create($request->validated());
-        $book->load("author");
-        return new BookResource($book);
+        $query=Book::with('author');
+        if($request->has('search')){
+           $search=$request->search;
+           $query->where(Function($q) use($search){
+               $q->where('title','LIKE',"%{$search}%")
+               ->orWhere('isbn','LIKE',"%{$search}%")
+               ->orWhereHas('author',function($autorQuesry) use($search){
+               $autorQuesry->where('name','LIKE',"%{$search}%");
+               });
+               ;
+           });
+        }
+        $books= $query->paginate(10);
+         return BookResource::collection($books);
     }
+
 
     /**
      * Store a newly created resource in storage.

@@ -6,6 +6,7 @@ use App\Http\Requests\MemberUpdateRequest;
 use App\Http\Requests\MemberInsertRequest;
 use App\Http\Resources\MemberResource;
 use App\Models\Member;
+use Exception;
 use Illuminate\Http\Request;
 
 class MemberController extends Controller
