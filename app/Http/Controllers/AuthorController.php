@@ -24,6 +24,7 @@ class AuthorController extends Controller
     {
         //
         $authors = Author::whit('book');
+        
        
         return AuthorResource::collection($authors);
     }
