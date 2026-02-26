@@ -18,6 +18,7 @@ class BookFactory extends Factory
     public function definition(): array
     {
         return [
+<<<<<<< HEAD
             //
             "title"=> $this->faker->sentence(3),
             "isbn"=> $this->faker->unique()->isbn13(),
@@ -30,6 +31,19 @@ class BookFactory extends Factory
             "price"=> $this->faker->randomFloat(2,20,99),
             "cover_image"=>$this->faker->imageUrl('200','300','books',true),
             // // "status"=> $this->faker->randomElement(["active","inactive"]),
+=======
+            "title"=>$this->faker->sentence(3),
+            "isbn"=>$this->faker->unique()->isbn13(),
+            "description"=>$this->faker->paragraph(),
+            "author_id"=>Author::inRandomOrder()->first()?->id() ??Author::factory(),
+            "genra"=>$this->faker->randomElement(['fiction','novel','sience','motivetional','Non-fiction']),
+            "published_at"=>$this->faker->date(),
+            "total_copies"=>$this->faker->numberBetween(1,30),
+            "available_copies"=>$this->faker->numberBetween(1,30),
+            "price"=>$this->faker->randomFloat(2,20,99),
+            "cover_image"=>$this->faker->imageUrl(200,300,'books',true),
+            "status"=>$this->faker->randomElement("available","unavailable"),
+>>>>>>> da273e84915e6bc5185f8b0cd39f6ff499cb6896
         ];
     }
 }

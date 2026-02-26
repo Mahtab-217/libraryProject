@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class AuthorInsertRequest extends FormRequest
+class UpdateMemberRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -12,10 +12,6 @@ class AuthorInsertRequest extends FormRequest
     public function authorize(): bool
     {
         return true;
-<<<<<<< HEAD
-=======
-
->>>>>>> da273e84915e6bc5185f8b0cd39f6ff499cb6896
     }
 
     /**
@@ -26,16 +22,11 @@ class AuthorInsertRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
-<<<<<<< HEAD
-            "name"=> "required|string|max:50",
-            "bio"=> "nullable|string",
-            "nationality"=> "nullable|string"
-=======
-            "name"=>"required|string|max:120",
-            "bio"=>"nullable|string",
-            "nationality"=>"nullable|string"
->>>>>>> da273e84915e6bc5185f8b0cd39f6ff499cb6896
+            "name"=>"required|string|max:30|min:5",
+            "email"=>"required|string|max:80|min:10",
+            "whatsApp_number"=>"nullable|string|max:30|min:5",
+            "adress"=>"nullable|string|max:50|min:5",
+            "membership_date"=>"nullable|integer|max:50",
         ];
     }
 }

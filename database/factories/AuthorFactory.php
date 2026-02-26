@@ -18,9 +18,12 @@ class AuthorFactory extends Factory
     {
         return [
             //
+<<<<<<< HEAD
             "name"=> $this->faker->name(),
             "bio"=> $this->faker->paragraph(),
             "nationality"=> $this->faker->colorName(),
+=======
+>>>>>>> da273e84915e6bc5185f8b0cd39f6ff499cb6896
         ];
     }
 }

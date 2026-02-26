@@ -23,6 +23,7 @@ class BookUpdateRequest extends FormRequest
     {
         return [
             //
+<<<<<<< HEAD
             "title"=> "nullable|string|min:7",
             "isbn"=> "nullable|string",
             "description"=> "nullable|string",
@@ -32,6 +33,17 @@ class BookUpdateRequest extends FormRequest
             "price"=> "nullable|numeric",
             "author_id"=> "nullable|integer|exists:author,id",
             "genra"=> "nullable|string",
+=======
+              "title"=>"nullable|string|min:4",
+            "isbn"=>"nullable|string",
+            "description"=>"nullable|string",
+            "published_at"=>"nullable|date",
+            "total_copies"=>"nullable|integer|max:300",
+            "cover_image"=>"nullable|string",
+            "price"=>"nullable|numeric",
+            "author_id"=>"nullable|integer|exists:authors,id",
+            "genra"=>"nullable|string",
+>>>>>>> da273e84915e6bc5185f8b0cd39f6ff499cb6896
         ];
     }
 }
