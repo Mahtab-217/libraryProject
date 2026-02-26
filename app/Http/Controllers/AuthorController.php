@@ -12,10 +12,11 @@ class AuthorController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         //
-        $authors = Author::whit('book')->paginate(10);
+        $authors = Author::whit('book');
+       
         return AuthorResource::collection($authors);
     }
 
